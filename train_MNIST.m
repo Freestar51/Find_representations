@@ -1,6 +1,9 @@
+addpath(genpath('./'));
+
 disp('Data Loading...');
-load('C:\Users\freestar\Documents\MATLAB\Library\DeepLearnToolbox-master\data\mnist_train.mat');    % train_X, train_labels
-load('C:\Users\freestar\Documents\MATLAB\Library\DeepLearnToolbox-master\data\mnist_test.mat');     % test_X, test_labels
+load('./data/mnist_train.mat');    % train_X, train_labels
+load('./data/mnist_test.mat');     % test_X, test_labels
+
 num_classes = 10;
 train_x = train_X;
 test_x = test_X;
@@ -45,5 +48,5 @@ for idx=1:100
     title(sprintf('%d', pred(i)-1));
     nn = nnff(nn, x, zeros(size(x,1), nn.size(end)));
     
-    pause();
+%     pause();
 end
