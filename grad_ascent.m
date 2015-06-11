@@ -2,13 +2,13 @@ function [ X_ ] = grad_ascent( nn, rho, n )
 % Simplified Gradient Ascent for Visualize DBN
 %
 % Input Parameters:
-%               nn:      learned DBN model using dbn.m from deepmat
+%               nn:      learned NN with DBN of DeepLearnToolbox
 %               rho:    constraint of norm(x) during the gradient ascent
 %               n:      the index of visualizing unit
 %
 % Written by Giyoung Jeon
 % Probabilistic Artificial Intelligence Lab at UNIST
-% v1.1 April, 9th, 2015
+% v1.3 June, 11th, 2015
 
     function y = tarfun(X, nn)
         nn_ = nnff(nn, X, zeros(size(X,1), nn.size(end)));
