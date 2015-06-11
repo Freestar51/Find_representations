@@ -19,23 +19,29 @@ if(~exist('representations.mat'))
     parfor idx = 1:100
         x_{idx} = grad_ascent(nn,rho,idx);
     end
-    save('representations.mat','x_');
+    x=cell2mat(x_);
+    save('representations.mat','x');
+    clear x_;
 else
     load('representations.mat');
 end
 
-load('data/mnist_test.m');
-x_ = cell2mat(x_);
-mult = 0:10:990;
-u_idx = floor(mod(rand(1,100)*100,10));
-u_idx = u_idx + mult;
-for idx=1:100
+load('data/mnist_test.mat');
+pred = nnpredict(nn, test_X);
+u_idx = find(pred~=test_labels);
+% mult = 0:100:9900;
+% u_idx = floor(mod(rand(1,100)*100,10));
+% u_idx = u_idx + mult;
+for idx=1:length(u_idx);
     ridx = u_idx(idx);
-    nn = nnff(test_X(ridx,:),zeros(size(X,1), nn.size(end)));
-    repr = nn.a{end-1}'*x_;
+    nn = nnff(nn, test_X(ridx,:),zeros(1, nn.size(end)));
+    repr = nn.a{end-1}*x./sum(x);
+    repr = (repr-mean(repr))/std(repr);
     subplot(1,2,1);
     imshow(reshape(test_X(ridx,:),[28 28])');
+    title(sprintf('original: %d',test_labels(ridx)-1));
     subplot(1,2,2);
     imshow(reshape(repr, [28 28])');
+    title(sprintf('predicted: %d',pred(ridx)-1));
     pause();
 end
