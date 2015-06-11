@@ -16,7 +16,7 @@ function [ X_ ] = grad_ascent( nn, rho, n )
     end
 
     maxiter=100;
-    learn_rate = 0.01;
+    learn_rate = 1;
     delta = 14/1000;
     sample_n = 10;
     X_ = zeros(1,size(nn.a{1},2));
@@ -38,9 +38,9 @@ function [ X_ ] = grad_ascent( nn, rho, n )
             ex_grad = grad;
         end
         X_ = X_ + X0;
-        if(mean(ex_grad-grad)<delta)
-            break
-        end
+%         if(max(abs(ex_grad-grad))<0.00001)
+%             break
+%         end
     end
     X_=X_/sample_n;
 end

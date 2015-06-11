@@ -19,3 +19,5 @@ for idx = 1:100
     disp(sprintf('optimizing unit %d\n',idx));
     x_{idx} = grad_ascent(nn,rho,idx);
 end
+
+% imshow(reshape(x_{1},[28 28])');
